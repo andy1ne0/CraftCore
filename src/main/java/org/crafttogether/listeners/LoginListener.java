@@ -13,12 +13,20 @@ import org.crafttogether.players.PlayerManager;
  */
 public class LoginListener implements Listener {
 
+    /**
+     * Pre-Login Handler
+     * @param event event
+     */
     @EventHandler
     public void onPlayerPreLogin(AsyncPlayerPreLoginEvent event) {
         CTPlayer player = new CTPlayer(event.getUniqueId(), event.getName());
         PlayerManager.getPlayers().add(player);
     }
 
+    /**
+     * Quit Handler
+     * @param event event
+     */
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         CTPlayer player = PlayerManager.getPlayer(event.getPlayer()).orElseThrow(() -> new RuntimeException("Player must be loaded to be able to run logout actions"));

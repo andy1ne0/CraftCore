@@ -10,25 +10,21 @@ public final class CraftCore extends JavaPlugin {
 
     private static CraftCore instance;
 
-    public static CraftCore getInstance() {
-        return instance;
-    }
-
     private Connection databaseConnection;
 
     @Override
     public void onEnable() {
-        instance=this;
+        instance = this;
 
         this.saveDefaultConfig();
 
         this.databaseConnection = RethinkDB.r.connection()
                 .hostname(this.getConfig().getString("database.hostname"))
                 .port(this.getConfig().getInt("database.port"))
-                .user(this.getConfig().getString("username"), this.getConfig().getString("database.password"))
+                .user(this.getConfig().getString("database.username"), this.getConfig().getString("database.password"))
                 .connect();
 
-        for(Listener listener : new Listener[]{
+        for (Listener listener : new Listener[]{
                 new LoginListener()
         }) {
             this.getServer().getPluginManager().registerEvents(listener, this);
@@ -40,7 +36,17 @@ public final class CraftCore extends JavaPlugin {
         // TODO: Plugin shutdown logic
     }
 
+    /**
+     * @return Plugin instance
+     */
+    public static CraftCore getInstance() {
+        return instance;
+    }
+
+    /**
+     * @return RethinkDB database connection
+     */
     public Connection getDatabaseConnection() {
-        return databaseConnection;
+        return this.databaseConnection;
     }
 }

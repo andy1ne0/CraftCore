@@ -14,21 +14,37 @@ public enum CTRank {
     private String prefix;
     private int permissionLevel;
 
+    /**
+     * Constructs a new rank.
+     *
+     * @param name Rank display name
+     * @param prefix Chat and Tag prefix
+     * @param permissionLevel Comparable permission level
+     */
     CTRank(String name, String prefix, int permissionLevel) {
         this.name = name;
         this.prefix = prefix;
         this.permissionLevel = permissionLevel;
     }
 
+    /**
+     * @return Rank display name
+     */
     public String getName() {
-        return name;
+        return this.name;
     }
 
+    /**
+     * @return Rank prefix
+     */
     public String getPrefix() {
-        return prefix;
+        return this.prefix;
     }
 
+    /**
+     * @return Rank permission level
+     */
     public int getPermissionLevel() {
-        return permissionLevel;
+        return this.permissionLevel;
     }
 }

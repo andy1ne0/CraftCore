@@ -15,27 +15,50 @@ public class CTPlayer {
 
     private CTRank rank = CTRank.PLAYER;
 
+    /**
+     * Constructs a CTPlayer.
+     *
+     * @param id Player UUID
+     * @param currentName Current IGN
+     */
     public CTPlayer(UUID id, String currentName) {
         this.id = id;
         this.currentName = currentName;
     }
 
+    /**
+     * @return Player UUID
+     */
     public UUID getId() {
-        return id;
+        return this.id;
     }
 
+    /**
+     * @return Current IGN
+     */
     public String getCurrentName() {
-        return currentName;
+        return this.currentName;
     }
 
+    /**
+     * Sets the current IGN
+     * @param currentName IGN
+     */
     public void setCurrentName(String currentName) {
         this.currentName = currentName;
     }
 
+    /**
+     * @return Player Rank
+     */
     public CTRank getRank() {
-        return rank;
+        return this.rank;
     }
 
+    /**
+     * Sets the player rank
+     * @param rank New rank
+     */
     public void setRank(CTRank rank) {
         this.rank = rank;
     }

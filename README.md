@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/CraftTogether/CraftCore.png?label=ready&title=Ready)](https://waffle.io/CraftTogether/CraftCore)
 # CraftCore [![Build Status](https://travis-ci.org/CraftTogether/CraftCore.svg?branch=master)](https://travis-ci.org/CraftTogether/CraftCore)
 
 This will act as the main plugin for which to depend everything off.
