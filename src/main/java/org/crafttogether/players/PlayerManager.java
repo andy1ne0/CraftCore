@@ -1,6 +1,10 @@
 package org.crafttogether.players;
 
 import org.bukkit.entity.Player;
+import org.crafttogether.metrics.MetricsManager;
+
+import com.codahale.metrics.Counter;
+import com.codahale.metrics.MetricRegistry;
 
 import java.util.*;
 import java.util.concurrent.locks.Lock;
