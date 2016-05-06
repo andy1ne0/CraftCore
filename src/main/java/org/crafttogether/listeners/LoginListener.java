@@ -20,7 +20,7 @@ public class LoginListener implements Listener {
     @EventHandler
     public void onPlayerPreLogin(AsyncPlayerPreLoginEvent event) {
         CTPlayer player = new CTPlayer(event.getUniqueId(), event.getName());
-        PlayerManager.getPlayers().add(player);
+        PlayerManager.addPlayer(player);
     }
 
     /**
@@ -30,7 +30,7 @@ public class LoginListener implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         CTPlayer player = PlayerManager.getPlayer(event.getPlayer()).orElseThrow(() -> new RuntimeException("Player must be loaded to be able to run logout actions"));
-        PlayerManager.getPlayers().remove(player);
+        PlayerManager.removePlayer(player);
     }
 
 }
