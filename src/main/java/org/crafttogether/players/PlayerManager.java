@@ -67,6 +67,7 @@ public final class PlayerManager {
         playersLock.lock();
         try {
             players.add(player);
+            playersCounter.inc();
         } finally {
             playersLock.unlock();
         }
@@ -80,6 +81,7 @@ public final class PlayerManager {
         playersLock.lock();
         try {
             players.remove(player);
+            playersCounter.dec();
         } finally {
             playersLock.unlock();
         }
