@@ -1,5 +1,9 @@
 package org.crafttogether.players;
 
+import org.crafttogether.moderation.Punishment;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -14,6 +18,7 @@ public class CTPlayer {
     private String currentName;
 
     private CTRank rank = CTRank.PLAYER;
+    private List<Punishment> punishments;
 
     /**
      * Constructs a CTPlayer.
@@ -24,6 +29,15 @@ public class CTPlayer {
     public CTPlayer(UUID id, String currentName) {
         this.id = id;
         this.currentName = currentName;
+        this.punishments = loadPunishments();
+    }
+
+    private List<Punishment> loadPunishments(){
+        return new ArrayList<>();
+    }
+
+    public List<Punishment> getPunishments() {
+        return punishments;
     }
 
     /**
@@ -61,5 +75,9 @@ public class CTPlayer {
      */
     public void setRank(CTRank rank) {
         this.rank = rank;
+    }
+
+    public boolean isStaff(){
+        return getRank().getPermissionLevel() > 1; //TODO: ?
     }
 }
