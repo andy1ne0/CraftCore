@@ -18,6 +18,7 @@ public final class PlayerManager {
 
     private static final List<CTPlayer> players = new ArrayList<>();
     private static final Lock playersLock = new ReentrantLock();
+    private static final Counter playersCounter = MetricsManager.getMetricRegistry().counter(MetricRegistry.name(PlayerManager.class, "players"));
 
     /**
      * Blank
