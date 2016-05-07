@@ -2,9 +2,9 @@ package org.crafttogether.players;
 
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author theminecoder
@@ -12,7 +12,8 @@ import java.util.UUID;
  */
 public final class PlayerManager {
 
-    private static final ArrayList<CTPlayer> players = new ArrayList<>();
+    private static final List<CTPlayer> players = new ArrayList<>();
+    private static final Lock playersLock = new ReentrantLock();
 
     /**
      * Blank
@@ -21,10 +22,10 @@ public final class PlayerManager {
     }
 
     /**
-     * @return The current player objects
+     * @return An unmodifiable list of players
      */
-    public static ArrayList<CTPlayer> getPlayers() {
-        return players;
+    public static List<CTPlayer> getPlayers() {
+        return Collections.unmodifiableList(players);
     }
 
     /**
@@ -42,7 +43,43 @@ public final class PlayerManager {
      * @return {@link Optional} of {@link CTPlayer}
      */
     public static Optional<CTPlayer> getPlayer(UUID uuid) {
-        return players.stream().filter(player -> player.getId().equals(uuid)).findFirst();
+        playersLock.lock();
+        Optional<CTPlayer> ctPlayer;
+        try {
+            ctPlayer = players.stream().filter(player -> player.getId().equals(uuid)).findFirst();
+        } finally {
+            playersLock.unlock();
+        }
+
+        return ctPlayer;
     }
+
+    /**
+     * Adds {@link CTPlayer} to players list
+     * @param player to add
+     */
+    public static void addPlayer(CTPlayer player) {
+        playersLock.lock();
+        try {
+            players.add(player);
+        } finally {
+            playersLock.unlock();
+        }
+    }
+
+    /**
+     * Removes {@link CTPlayer} from players list
+     * @param player to remove
+     */
+    public static void removePlayer(CTPlayer player) {
+        playersLock.lock();
+        try {
+            players.remove(player);
+        } finally {
+            playersLock.unlock();
+        }
+    }
+
+
 
 }
