@@ -33,7 +33,9 @@ public final class CraftCore extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // TODO: Plugin shutdown logic
+        if (this.databaseConnection != null && this.databaseConnection.isOpen()) {
+            this.databaseConnection.close();
+        }
     }
 
     /**
