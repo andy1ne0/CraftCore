@@ -23,7 +23,6 @@ public final class LocaleManager {
 
     /**
      * @param locale The LocaleString object you wish to register.
-     * @return Whether or not the locale was already registered.
      */
     public static void registerNewLocale(LocaleString locale){
         localeLock.lock();
