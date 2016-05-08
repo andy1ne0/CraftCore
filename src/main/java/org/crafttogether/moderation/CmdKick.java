@@ -17,11 +17,11 @@ import java.util.UUID;
  * Created by dan on 5/5/16.
  */
 public class CmdKick extends Command {
+    private static final String USAGE = ChatColor.RED + "/kick <player>";
+
     public CmdKick(String name) {
         super(name);
     }
-
-    private final String USAGE = ChatColor.RED + "/kick <player>";
 
     @Override
     public boolean execute(CommandSender commandSender, String s, String[] args) {

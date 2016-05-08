@@ -17,11 +17,11 @@ import java.util.UUID;
  * Created by dan on 5/5/16.
  */
 public class CmdMute extends Command {
+    private static final String USAGE = ChatColor.RED + "/ban <player> <duration><m,h,d,y>";
+
     public CmdMute(String name) {
         super(name);
     }
-
-    private final String USAGE = ChatColor.RED + "/ban <player> <duration><m,h,d,y>";
 
     @Override
     public boolean execute(CommandSender commandSender, String s, String[] args) {
