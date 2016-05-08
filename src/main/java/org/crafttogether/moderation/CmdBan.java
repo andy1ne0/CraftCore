@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.crafttogether.players.PlayerManager;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
@@ -36,10 +37,6 @@ public class CmdBan extends Command {
                 commandSender.sendMessage(USAGE);
                 return true;
             }
-            if(true){ //check if the punished player is a real player
-                commandSender.sendMessage(ChatColor.RED + "That is not a real player.");
-                return true;
-            }
             if(StringUtils.isNumeric(args[1].substring(0, args[1].length()-1))){
                 int length = Integer.parseInt(args[1].substring(0, args[1].length()-1));
                 Duration duration;
@@ -61,9 +58,9 @@ public class CmdBan extends Command {
                         break;
                 }
                 if(commandSender instanceof Player){
-                    new Punishment(PunishmentType.BAN, ((Player)commandSender).getUniqueId(), UUID.randomUUID(), duration);
+                    new Punishment(PunishmentType.BAN, ((Player)commandSender).getUniqueId(), UUID.randomUUID(), duration, false, LocalDateTime.now());
                 } else {
-                    new Punishment(PunishmentType.BAN, null, UUID.randomUUID(), duration);
+                    new Punishment(PunishmentType.BAN, null, null, duration, false, LocalDateTime.now());
                 }
                 return true;
             }

@@ -9,6 +9,10 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.crafttogether.players.PlayerManager;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 /**
  * Created by dan on 5/5/16.
  */
@@ -41,6 +45,11 @@ public class CmdKick extends Command {
             reason = reason.replaceFirst(args[0] + " ", "");
             Bukkit.getPlayer(args[0]).kickPlayer(ChatColor.RED + "Kicked by " + commandSender.getName() + " for " + reason);
             commandSender.sendMessage(ChatColor.GREEN + "Kicked " + args[0]);
+            if(commandSender instanceof Player){
+                new Punishment(PunishmentType.KICK, ((Player)commandSender).getUniqueId(), UUID.randomUUID(), Duration.ZERO, true, LocalDateTime.now());
+            } else {
+                new Punishment(PunishmentType.KICK, null, null, Duration.ZERO, true, LocalDateTime.now());
+            }
             return true;
         }
         commandSender.sendMessage(ChatColor.RED + "You are not staff.");

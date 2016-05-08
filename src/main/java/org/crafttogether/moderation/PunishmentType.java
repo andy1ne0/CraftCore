@@ -5,5 +5,6 @@ package org.crafttogether.moderation;
  */
 public enum PunishmentType {
     MUTE,
-    BAN
+    BAN,
+    KICK
 }

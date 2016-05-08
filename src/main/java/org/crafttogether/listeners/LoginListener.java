@@ -1,9 +1,11 @@
 package org.crafttogether.listeners;
 
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.crafttogether.moderation.PunishmentType;
 import org.crafttogether.players.CTPlayer;
 import org.crafttogether.players.PlayerManager;
 
@@ -21,6 +23,9 @@ public class LoginListener implements Listener {
     public void onPlayerPreLogin(AsyncPlayerPreLoginEvent event) {
         CTPlayer player = new CTPlayer(event.getUniqueId(), event.getName());
         PlayerManager.addPlayer(player);
+        player.getPunishments().stream().filter(punishment -> punishment.getType() == PunishmentType.BAN && !punishment.isExpired()).findAny().ifPresent(punishment -> {
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, ChatColor.RED + "You have been banned for " + punishment.getDurationString());
+        });
     }
 
     /**

@@ -10,5 +10,6 @@ public class Moderation {
         CraftCore.getInstance().getServer().getCommandMap().register("ban", new CmdBan("ban"));
         CraftCore.getInstance().getServer().getCommandMap().register("kick", new CmdKick("kick"));
         CraftCore.getInstance().getServer().getCommandMap().register("mute", new CmdMute("mute"));
+        CraftCore.getInstance().getServer().getCommandMap().register("bandata", new CmdBanData("bandata"));
     }
 }

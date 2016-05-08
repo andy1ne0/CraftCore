@@ -1,10 +1,15 @@
 package org.crafttogether.players;
 
+import com.google.common.collect.Lists;
+import com.rethinkdb.net.Cursor;
+import org.crafttogether.CraftCore;
 import org.crafttogether.moderation.Punishment;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
+import static com.rethinkdb.RethinkDB.r;
 
 /**
  * Network wide player data.
@@ -19,6 +24,7 @@ public class CTPlayer {
 
     private CTRank rank = CTRank.PLAYER;
     private List<Punishment> punishments;
+    private List<Punishment> activePunishments;
 
     /**
      * Constructs a CTPlayer.
@@ -30,10 +36,14 @@ public class CTPlayer {
         this.id = id;
         this.currentName = currentName;
         this.punishments = loadPunishments();
+        this.activePunishments = punishments.stream().filter(punishment -> !punishment.isExpired()).collect(Collectors.toList());
     }
 
     private List<Punishment> loadPunishments(){
-        return new ArrayList<>();
+        Cursor cursor = r.table("moderation").filter(row -> row.g("player").eq(id)).run(CraftCore.getInstance().getDatabaseConnection());
+        List<Punishment> punishments = Lists.newArrayList();
+        cursor.forEach(p -> punishments.add((Punishment)p));
+        return punishments;
     }
 
     public List<Punishment> getPunishments() {
@@ -79,5 +89,9 @@ public class CTPlayer {
 
     public boolean isStaff(){
         return getRank().getPermissionLevel() > 1; //TODO: ?
+    }
+
+    public List<Punishment> getActivePunishments() {
+        return activePunishments;
     }
 }
