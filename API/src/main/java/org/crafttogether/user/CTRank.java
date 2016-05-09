@@ -1,7 +1,7 @@
-package org.crafttogether.players;
+package org.crafttogether.user;
 
 /**
- * {@linkplain CTPlayer} ranks
+ * {@linkplain User} ranks
  *
  * @author theminecoder
  * @version 1.0
@@ -46,5 +46,14 @@ public enum CTRank {
      */
     public int getPermissionLevel() {
         return this.permissionLevel;
+    }
+
+    /**
+     * Checks if rank can access rank
+     * @param rank {@link CTRank}
+     * @return boolean.
+     */
+    public boolean has(CTRank rank) {
+        return this.compareTo(rank) >= 0;
     }
 }
