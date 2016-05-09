@@ -56,7 +56,7 @@ public class CTUser implements User {
 
     @Override
     public Collection<String> getPreviousIGNs() {
-        return previousNames;
+        return this.previousNames;
     }
 
     @Override
