@@ -2,5 +2,4 @@ name: CraftCore
 version: 1.0-SNAPSHOT
 main: org.crafttogether.CraftCore
 
-author: theminecoder # Project lead
-
+author: [CraftTogether]

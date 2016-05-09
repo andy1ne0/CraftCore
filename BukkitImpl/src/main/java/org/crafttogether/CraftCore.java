@@ -1,21 +1,21 @@
 package org.crafttogether;
 
+import com.google.common.collect.ImmutableList;
 import com.rethinkdb.RethinkDB;
 import com.rethinkdb.net.Connection;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.crafttogether.listeners.LoginListener;
+import org.crafttogether.players.UserManager;
+import org.crafttogether.user.IUserManager;
 
 public final class CraftCore extends JavaPlugin {
 
-    private static CraftCore instance;
-
     private Connection databaseConnection;
+    private IUserManager userManager;
 
     @Override
     public void onEnable() {
-        instance = this;
-
         this.saveDefaultConfig();
 
         this.databaseConnection = RethinkDB.r.connection()
@@ -24,9 +24,10 @@ public final class CraftCore extends JavaPlugin {
                 .user(this.getConfig().getString("database.username"), this.getConfig().getString("database.password"))
                 .connect();
 
-        for (Listener listener : new Listener[]{
-                new LoginListener()
-        }) {
+        this.userManager = new UserManager();
+
+        ImmutableList<Listener> listeners = ImmutableList.of(new LoginListener());
+        for (Listener listener : listeners) {
             this.getServer().getPluginManager().registerEvents(listener, this);
         }
     }
@@ -42,7 +43,7 @@ public final class CraftCore extends JavaPlugin {
      * @return Plugin instance
      */
     public static CraftCore getInstance() {
-        return instance;
+        return JavaPlugin.getPlugin(CraftCore.class);
     }
 
     /**
@@ -50,5 +51,12 @@ public final class CraftCore extends JavaPlugin {
      */
     public Connection getDatabaseConnection() {
         return this.databaseConnection;
+    }
+
+    /**
+     * @return {@link UserManager} instance.
+     */
+    public IUserManager getUserManager() {
+        return this.userManager;
     }
 }
