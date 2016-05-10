@@ -2,6 +2,7 @@ package org.crafttogether.user;
 
 import org.bukkit.entity.Player;
 
+import java.util.Collection;
 import java.util.UUID;
 
 /**
@@ -27,6 +28,36 @@ public interface User {
      * @param ign Current ign.
      */
     void setLastIGN(String ign);
+
+    /**
+     * Gets the previous usernames of the user.
+     * @return Collection of users previous used names on the network.
+     */
+    Collection<String> getPreviousIGNs();
+
+    /**
+     * Sets the previous usernames of the user.
+     * @param igns Collection of strings to set.
+     */
+    void setPreviousIGNs(Collection<String> igns);
+
+    /**
+     * Sets the previous usernames of the user.
+     * @param igns Array of strings to set.
+     */
+    void setPreviousIGNs(String... igns);
+
+    /**
+     * Adds a name to the list of previous usernames.
+     * @param igns Collection of strings to add.
+     */
+    void addPreviousIGNs(Collection<String> igns);
+
+    /**
+     * Adds a name to the list of previous usernames.
+     * @param igns Array of strings to add.
+     */
+    void addPreviousIGNs(String... igns);
 
     /**
      * Gets the {@link Player} for the User.
