@@ -19,6 +19,10 @@ public class LoginListener implements Listener {
         event.getResponse().setDescription("CraftTogether"); //use database
     }
 
+    /**
+     * Pre Login event handler
+     * @param event event
+     */
     @EventHandler
     public void onPreLogin(PreLoginEvent event){
         //Check database if banned
