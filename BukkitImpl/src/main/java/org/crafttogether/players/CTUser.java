@@ -1,7 +1,10 @@
 package org.crafttogether.players;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.PermissionAttachment;
+import org.crafttogether.CraftCore;
 import org.crafttogether.user.CTRank;
 import org.crafttogether.user.Punishment;
 import org.crafttogether.user.User;
@@ -24,6 +27,7 @@ public class CTUser implements User {
     private UUID id;
     private String currentName;
     private List<String> previousNames;
+    private PermissionAttachment permissionAttachment;
 
     private WeakReference<Player> reference;
 
@@ -41,6 +45,11 @@ public class CTUser implements User {
         this.id = id;
         this.currentName = currentName;
         this.previousNames = Lists.newArrayList();
+        this.permissionAttachment = CraftCore.getInstance().getServer().getPlayer(id).addAttachment(CraftCore.getInstance());
+
+        if (this.rank.getPermissionGroup() != null) {
+            this.rank.getPermissionGroup().getPermissions().forEach(this::addPermission);
+        }
         this.punishments = Lists.newArrayList();
         this.loadPunishments();
     }
@@ -107,6 +116,26 @@ public class CTUser implements User {
     @Override
     public void setRank(CTRank rank) {
         this.rank = rank;
+    }
+
+    @Override
+    public void addPermission(String permission) {
+        this.permissionAttachment.setPermission(permission.toLowerCase(), true);
+    }
+
+    @Override
+    public void removePermission(String permission) {
+        this.permissionAttachment.unsetPermission(permission.toLowerCase());
+    }
+
+    @Override
+    public boolean hasPermission(String permission) {
+        return this.permissionAttachment.getPermissions().keySet().stream().anyMatch(s -> s.equals(permission.toLowerCase()));
+    }
+
+    @Override
+    public Collection<String> getPermissions() {
+        return ImmutableSet.copyOf(this.permissionAttachment.getPermissions().keySet());
     }
 
     @Override

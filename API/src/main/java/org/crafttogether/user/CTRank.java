@@ -1,5 +1,7 @@
 package org.crafttogether.user;
 
+import org.crafttogether.permissions.PermissionGroup;
+
 /**
  * {@linkplain User} ranks
  *
@@ -8,12 +10,13 @@ package org.crafttogether.user;
  */
 public enum CTRank {
 
-    PLAYER("Player", "", 0, false),
-    STAFF("Staff", "", 1, true);
+    PLAYER("Player", "", 0, false, null),
+    STAFF("Staff", "", 1, true, null);
 
     private String name;
     private String prefix;
     private int permissionLevel;
+    private PermissionGroup permissionGroup;
     private boolean staff;
 
     /**
@@ -23,11 +26,12 @@ public enum CTRank {
      * @param prefix Chat and Tag prefix
      * @param permissionLevel Comparable permission level
      */
-    CTRank(String name, String prefix, int permissionLevel, boolean staff) {
+    CTRank(String name, String prefix, int permissionLevel, boolean staff, PermissionGroup permissionGroup) {
         this.name = name;
         this.prefix = prefix;
         this.permissionLevel = permissionLevel;
         this.staff = staff;
+        this.permissionGroup = permissionGroup;
     }
 
     /**
@@ -49,6 +53,10 @@ public enum CTRank {
      */
     public int getPermissionLevel() {
         return this.permissionLevel;
+    }
+
+    public PermissionGroup getPermissionGroup() {
+        return this.permissionGroup;
     }
 
     /**

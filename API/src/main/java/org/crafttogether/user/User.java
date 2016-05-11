@@ -1,6 +1,7 @@
 package org.crafttogether.user;
 
 import org.bukkit.entity.Player;
+import org.crafttogether.permissions.PermissionHolder;
 
 import java.util.Collection;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.UUID;
  * @author Erik Rosemberg
  * @since 07.05.2016
  */
-public interface User {
+public interface User extends PermissionHolder {
 
     /**
      * Gets the global unique identifier of the user.
