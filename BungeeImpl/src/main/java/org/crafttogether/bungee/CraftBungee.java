@@ -9,6 +9,6 @@ public class CraftBungee extends Plugin {
 
     @Override
     public void onEnable(){
-
+        //enable stuff here
     }
 }
