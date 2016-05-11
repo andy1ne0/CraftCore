@@ -11,6 +11,7 @@
     <modules>
         <module>API</module>
         <module>BukkitImpl</module>
+        <module>BungeeImpl</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -59,6 +60,10 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+        <repository>
+            <id>bungee-repo</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -68,6 +73,13 @@
             <artifactId>spigot-api</artifactId>
             <version>1.9.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- Bungee API -->
+        <dependency>
+            <groupId>net.md-5</groupId>
+            <artifactId>bungeecord-api</artifactId>
+            <version>1.9-SNAPSHOT</version>
         </dependency>
 
         <!-- RethinkDB Java Driver-->
