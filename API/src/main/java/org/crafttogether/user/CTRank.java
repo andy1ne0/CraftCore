@@ -8,11 +8,13 @@ package org.crafttogether.user;
  */
 public enum CTRank {
 
-    PLAYER("Player", "", 0);
+    PLAYER("Player", "", 0, false),
+    STAFF("Staff", "", 1, true);
 
     private String name;
     private String prefix;
     private int permissionLevel;
+    private boolean staff;
 
     /**
      * Constructs a new rank.
@@ -21,10 +23,11 @@ public enum CTRank {
      * @param prefix Chat and Tag prefix
      * @param permissionLevel Comparable permission level
      */
-    CTRank(String name, String prefix, int permissionLevel) {
+    CTRank(String name, String prefix, int permissionLevel, boolean staff) {
         this.name = name;
         this.prefix = prefix;
         this.permissionLevel = permissionLevel;
+        this.staff = staff;
     }
 
     /**
@@ -46,6 +49,13 @@ public enum CTRank {
      */
     public int getPermissionLevel() {
         return this.permissionLevel;
+    }
+
+    /**
+     * @return If the rank is staff
+     */
+    public boolean isStaff() {
+        return this.staff;
     }
 
     /**

@@ -3,6 +3,7 @@ package org.crafttogether.players;
 import com.google.common.collect.Lists;
 import org.bukkit.entity.Player;
 import org.crafttogether.user.CTRank;
+import org.crafttogether.user.Punishment;
 import org.crafttogether.user.User;
 
 import java.lang.ref.WeakReference;
@@ -10,6 +11,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Network wide user data.
@@ -27,6 +29,8 @@ public class CTUser implements User {
 
     private CTRank rank = CTRank.PLAYER;
 
+    private List<Punishment> punishments;
+
     /**
      * Constructs a CTPlayer.
      *
@@ -37,6 +41,8 @@ public class CTUser implements User {
         this.id = id;
         this.currentName = currentName;
         this.previousNames = Lists.newArrayList();
+        this.punishments = Lists.newArrayList();
+        this.loadPunishments();
     }
 
     @Override
@@ -101,5 +107,22 @@ public class CTUser implements User {
     @Override
     public void setRank(CTRank rank) {
         this.rank = rank;
+    }
+
+    @Override
+    public List<Punishment> getPunishments() {
+        return this.punishments;
+    }
+
+    @Override
+    public List<Punishment> getActivePunishments() {
+        return this.punishments.stream().filter(p -> !p.isExpired()).collect(Collectors.toList());
+    }
+
+    /**
+     * Load the punishments of the user from the database
+     */
+    private void loadPunishments(){
+        //check database
     }
 }
