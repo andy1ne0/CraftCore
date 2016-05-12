@@ -1,11 +1,13 @@
 package org.crafttogether.locale;
 
-import com.sun.istack.internal.NotNull;
 import org.bukkit.entity.Player;
 import org.crafttogether.CraftCore;
 import org.crafttogether.lang.ILocaleManager;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -31,19 +33,30 @@ public class LocaleManager implements ILocaleManager {
     }
 
     @Override
-    public String getTranslation(String refName, @NotNull Locale locale, String fallback) {
+    public String getTranslation(String refName, Locale locale, String fallback) {
         this.lock.readLock().lock();
         String toReturn = fallback;
         boolean found = false;
+        boolean engFallbackLocated = false;
+        String engFallback = fallback;
         try {
             for(ResourceBundle r : this.resources){
-                if(r.containsKey(refName) && r.getLocale().getLanguage().equals(locale.getLanguage())){
-                    found = true;
-                    toReturn = r.getString(refName);
+                if(r.containsKey(refName)){
+                    if(r.getLocale().getLanguage().equals(locale.getLanguage())){
+                        found = true;
+                        toReturn = r.getString(refName);
+                    } else if(r.getLocale().getLanguage().equalsIgnoreCase("en")){
+                        engFallbackLocated = true;
+                        engFallback = r.getString(refName);
+                    }
                 }
             }
+            if(!found && engFallbackLocated){
+                toReturn = engFallback;
+                found = true;
+            }
             if(!found){
-                CraftCore.getInstance().getServer().getLogger().warning("A translation was requested, but could not be found. "); // TODO: Proper logger implementation? i.e. with a prefix?
+                CraftCore.getInstance().getServer().getLogger().warning("A translation was requested, but could not be found. ");
                 CraftCore.getInstance().getServer().getLogger().warning("Fallback String: \""+fallback+"\"");
                 CraftCore.getInstance().getServer().getLogger().warning("Locale requested: \""+locale+"\"");
                 CraftCore.getInstance().getServer().getLogger().warning("Requested from: "+Thread.currentThread().getStackTrace()[2]);
@@ -60,6 +73,7 @@ public class LocaleManager implements ILocaleManager {
      * This method simply exists for convenience - {@link this#getTranslation(String, Locale, String)} should be used instead.
      * @param refName The key to look for in the locale files.
      * @param pl The target player for the message - to get their locale.
+     * @param fallback The string to return, should no corresponding translation be found.
      * @return The translation - either in the requested locale, or in English.
      */
     public String getTranslation(String refName, Player pl, String fallback){

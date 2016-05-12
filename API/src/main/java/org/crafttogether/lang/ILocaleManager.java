@@ -1,7 +1,5 @@
 package org.crafttogether.lang;
 
-import com.sun.istack.internal.NotNull;
-
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -24,6 +22,6 @@ public interface ILocaleManager {
      * @param fallback The string to return, should no valid response be found.
      * @return The translated string - will either be in the requested language, or English.
      */
-    String getTranslation(String refName, @NotNull Locale locale, String fallback);
+    String getTranslation(String refName, Locale locale, String fallback);
 
 }
