@@ -24,7 +24,7 @@ public class StringCosmetic {
     /**
      * Makes the input String strikethrough.
      */
-    public static final StringCosmetic STRIKETHROUGH = new StringCosmetic("strikethrough", s -> net.md_5.bungee.api.ChatColor.STRIKETHROUGH + s);
+    public static final StringCosmetic STRIKETHROUGH = new StringCosmetic("strikethrough", s -> ChatColor.STRIKETHROUGH + s);
     /**
      * Makes the input String uppercase.
      */
