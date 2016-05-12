@@ -1,15 +1,17 @@
 package org.crafttogether.user;
 
 import org.bukkit.entity.Player;
+import org.crafttogether.permissions.PermissionHolder;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 /**
  * @author Erik Rosemberg
  * @since 07.05.2016
  */
-public interface User {
+public interface User extends PermissionHolder {
 
     /**
      * Gets the global unique identifier of the user.
@@ -82,5 +84,16 @@ public interface User {
      * @param rank the rank to be set.
      */
     void setRank(CTRank rank);
+
+    /**
+     * Gets a list of {@link Punishment}s the user has
+     * @return {@link List} of punishments
+     */
+    List<Punishment> getPunishments();
+
+    /**
+     * @return a {@link List} of active punishments (not expired)
+     */
+    List<Punishment> getActivePunishments();
 
 }

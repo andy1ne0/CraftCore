@@ -6,6 +6,7 @@ import com.rethinkdb.net.Connection;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.crafttogether.listeners.LoginListener;
+import org.crafttogether.moderation.Moderation;
 import org.crafttogether.players.UserManager;
 import org.crafttogether.user.IUserManager;
 
@@ -30,6 +31,7 @@ public final class CraftCore extends JavaPlugin {
         for (Listener listener : listeners) {
             this.getServer().getPluginManager().registerEvents(listener, this);
         }
+        Moderation.init();
     }
 
     @Override
