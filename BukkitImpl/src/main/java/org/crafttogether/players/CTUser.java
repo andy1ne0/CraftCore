@@ -10,10 +10,7 @@ import org.crafttogether.user.Punishment;
 import org.crafttogether.user.User;
 
 import java.lang.ref.WeakReference;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -146,6 +143,13 @@ public class CTUser implements User {
     @Override
     public List<Punishment> getActivePunishments() {
         return this.punishments.stream().filter(p -> !p.isExpired()).collect(Collectors.toList());
+    }
+
+    @Override
+    public void sendLocalizedMessage(String stringIndex, String fallback) {
+        this.getPlayer().sendMessage
+                (CraftCore.getInstance().getLocaleManager().getTranslation
+                        (stringIndex, new Locale(this.getPlayer().spigot().getLocale()), fallback));
     }
 
     /**
