@@ -1,7 +1,7 @@
 package org.crafttogether.bungee;
 
 import net.md_5.bungee.api.plugin.Plugin;
-import org.crafttogether.bungee.locale.LocaleManager;
+import org.crafttogether.bungee.locale.LocaleManagerBungee;
 
 /**
  * Created by dan on 5/10/16.
@@ -9,12 +9,12 @@ import org.crafttogether.bungee.locale.LocaleManager;
 public class CraftBungee extends Plugin {
 
     private static CraftBungee instance;
-    private LocaleManager localeManager;
+    private LocaleManagerBungee localeManager;
 
     @Override
     public void onEnable(){
         instance = this;
-        this.localeManager = new LocaleManager();
+        this.localeManager = new LocaleManagerBungee();
         //enable stuff here
     }
 
@@ -30,7 +30,7 @@ public class CraftBungee extends Plugin {
      * Get the Locale Manager instance.
      * @return The Locale Manager instance.
      */
-    public LocaleManager getLocaleManager(){
+    public LocaleManagerBungee getLocaleManager(){
         return this.localeManager;
     }
 }

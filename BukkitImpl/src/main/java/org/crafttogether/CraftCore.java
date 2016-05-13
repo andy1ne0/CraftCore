@@ -6,7 +6,7 @@ import com.rethinkdb.net.Connection;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.crafttogether.listeners.LoginListener;
-import org.crafttogether.locale.LocaleManager;
+import org.crafttogether.locale.LocaleManagerBukkit;
 import org.crafttogether.moderation.Moderation;
 import org.crafttogether.players.UserManager;
 import org.crafttogether.user.IUserManager;
@@ -15,7 +15,7 @@ public final class CraftCore extends JavaPlugin {
 
     private Connection databaseConnection;
     private IUserManager userManager;
-    private LocaleManager localeManager;
+    private LocaleManagerBukkit localeManager;
 
     @Override
     public void onEnable() {
@@ -28,7 +28,7 @@ public final class CraftCore extends JavaPlugin {
                 .connect();
 
         this.userManager = new UserManager();
-        this.localeManager = new LocaleManager();
+        this.localeManager = new LocaleManagerBukkit();
 
         ImmutableList<Listener> listeners = ImmutableList.of(new LoginListener());
         for (Listener listener : listeners) {
@@ -67,9 +67,9 @@ public final class CraftCore extends JavaPlugin {
 
     /**
      * Get the Locale Manager instance.
-     * @return {@link LocaleManager} instance..
+     * @return {@link LocaleManagerBukkit} instance..
      */
-    public LocaleManager getLocaleManager(){
+    public LocaleManagerBukkit getLocaleManager(){
         return this.localeManager;
     }
 }

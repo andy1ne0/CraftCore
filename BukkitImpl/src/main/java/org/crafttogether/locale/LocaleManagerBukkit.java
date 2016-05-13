@@ -15,7 +15,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @author Andrew Petersen
  * @version 0.1
  */
-public class LocaleManager implements ILocaleManager {
+public class LocaleManagerBukkit implements ILocaleManager {
 
     private Set<ResourceBundle> resources = new HashSet<>();
     private ReadWriteLock lock = new ReentrantReadWriteLock();
