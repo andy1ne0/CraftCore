@@ -14,7 +14,7 @@ public class CraftBungee extends Plugin {
     @Override
     public void onEnable(){
         instance = this;
-        localeManager = new LocaleManager();
+        this.localeManager = new LocaleManager();
         //enable stuff here
     }
 

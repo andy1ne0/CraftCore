@@ -147,9 +147,7 @@ public class CTUser implements User {
 
     @Override
     public void sendLocalizedMessage(String stringIndex, String fallback) {
-        this.getPlayer().sendMessage
-                (CraftCore.getInstance().getLocaleManager().getTranslation
-                        (stringIndex, new Locale(this.getPlayer().spigot().getLocale()), fallback));
+        this.getPlayer().sendMessage(CraftCore.getInstance().getLocaleManager().getTranslation(stringIndex, new Locale(this.getPlayer().spigot().getLocale()), fallback));
     }
 
     /**
