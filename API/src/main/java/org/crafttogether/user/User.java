@@ -96,4 +96,11 @@ public interface User extends PermissionHolder {
      */
     List<Punishment> getActivePunishments();
 
+    /**
+     * Send the player a localized message.
+     * @param refName The key of the string -  used to look for the string in the key-set ResourceBundles.
+     * @param fallback The string to return, should no appropriate translation be found.
+     */
+    void sendLocalizedMessage(String refName, String fallback);
+
 }
