@@ -1,6 +1,7 @@
 package org.crafttogether.user;
 
 import org.crafttogether.permissions.PermissionGroup;
+import org.crafttogether.util.StringCosmetic;
 
 /**
  * {@linkplain User} ranks
@@ -37,16 +38,33 @@ public enum CTRank {
     /**
      * @return Rank display name
      */
-    public String getName() {
-        return this.name;
+    public String getName(StringCosmetic... stringCosmetics) {
+        String res = this.name;
+        for (StringCosmetic current : stringCosmetics) {
+            if (current.getName().equals("original")) {
+                res = this.name;
+                break;
+            }
+            res = current.apply(res);
+        }
+        return res;
     }
 
     /**
      * @return Rank prefix
      */
-    public String getPrefix() {
-        return this.prefix;
+    public String getPrefix(StringCosmetic... stringCosmetics) {
+        String res = this.prefix;
+        for (StringCosmetic current : stringCosmetics) {
+            if (current.getName().equals("original")) {
+                res = this.prefix;
+                break;
+            }
+            res = current.apply(res);
+        }
+        return res;
     }
+
 
     /**
      * @return Rank permission level
